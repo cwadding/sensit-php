@@ -1,0 +1,27 @@
+{
+	"name": "cwadding/sensit-client",
+	"version": "0.0.1",
+	"description": "Official Sensit API library client for PHP",
+	"homepage": "https://sensit.com",
+	"authors": [
+		{
+			"name": "Christopher Waddington",
+			"email": "cwadding@gmail.com",
+			"homepage": "http://github.com/cwadding"
+		}
+	],
+	"keywords": ["sensit", "api", "client", "library"],
+	"autoload": {
+		"psr-0": {
+			"Sensit\\": "lib/"
+		}
+	},
+	"require": {
+		"ext-json": "*",
+		"guzzle/guzzle": "3.7.*"
+	},
+	"support": {
+		"issues": "https://github.com/cwadding/sensit-php/issues"
+	},
+	"license": "MIT"
+}
