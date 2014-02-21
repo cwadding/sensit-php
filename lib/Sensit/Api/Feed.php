@@ -56,12 +56,12 @@ class Feed
      * Create a feed on a given topic. Requires authorization of **read_any_data**, or **read_application_data**.
      * '/topics/:topic_id/feeds' POST
      *
-     * @param $data A hash of data to be stored
+     * @param $feed A Hash containing `at`: a formatted time of the event. Defaults to the current time if not present.`tz`: The time zone of the time given in `at`. Defaults to UTC`data`:A hash of data to be stored
      */
-    public function create($data, array $options = array())
+    public function create($feed, array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
-        $body['data'] = $data;
+        $body['feed'] = $feed;
 
         $response = $this->client->post('/topics/'.rawurlencode($this->topic_id).'/feeds', $body, $options);
 
@@ -72,12 +72,12 @@ class Feed
      * Update an associated Feed to the Topic. Requires authorization of **read_any_data**, or **read_application_data**.
      * '/topics/:topic_id/feeds/:id' PUT
      *
-     * @param $data A hash of data to be stored
+     * @param $feed A hash containing `data`:A hash of data to be stored
      */
-    public function update($data, array $options = array())
+    public function update($feed, array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
-        $body['data'] = $data;
+        $body['feed'] = $feed;
 
         $response = $this->client->put('/topics/'.rawurlencode($this->topic_id).'/feeds/'.rawurlencode($this->id).'', $body, $options);
 

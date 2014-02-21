@@ -56,14 +56,12 @@ class Percolator
      * Create a percolator on the associated Topic with the specified name and query. Requires authorization of **manage_any_percolators**, or **manage_application_percolators**.
      * '/topics/:topic_id/percolators' POST
      *
-     * @param $name The time zone of the time. Defaults to UTC
-     * @param $query A hash of data to be stored
+     * @param $percolator A Hash containing `name`: The name of the percolator(required).`query`: The query hash according to the according the the [elasticsearch Query DSL](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl.html)
      */
-    public function create($name, $query, array $options = array())
+    public function create($percolator, array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
-        $body['name'] = $name;
-        $body['query'] = $query;
+        $body['percolator'] = $percolator;
 
         $response = $this->client->post('/topics/'.rawurlencode($this->topic_id).'/percolators', $body, $options);
 
@@ -74,12 +72,12 @@ class Percolator
      * Update the query for a specific percolator. Requires authorization of **manage_any_percolators**, or **manage_application_percolators**.
      * '/topics/:topic_id/percolators/:id' PUT
      *
-     * @param $query A hash of data to be stored
+     * @param $percolator A Hash containing the `query` hash according to the according the the [elasticsearch Query DSL](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl.html)
      */
-    public function update($query, array $options = array())
+    public function update($percolator, array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
-        $body['query'] = $query;
+        $body['percolator'] = $percolator;
 
         $response = $this->client->put('/topics/'.rawurlencode($this->topic_id).'/percolators/'.rawurlencode($this->id).'', $body, $options);
 

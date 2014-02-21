@@ -50,12 +50,12 @@ class Topic
      * Requires authorization of **manage_any_data**, or **manage_application_data**.
      * '/topics' POST
      *
-     * @param $name The name and id of the topic.
+     * @param $topic A hash containing the name/id of the topic (required) and a description of the topic.
      */
-    public function create($name, array $options = array())
+    public function create($topic, array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
-        $body['name'] = $name;
+        $body['topic'] = $topic;
 
         $response = $this->client->post('/topics', $body, $options);
 
@@ -66,12 +66,12 @@ class Topic
      * Requires authorization of **manage_any_data**, or **manage_application_data**.
      * '/topics/:id' PUT
      *
-     * @param $name The name and id of the topic.
+     * @param $topic A hash containing the name/id of the topic (required) and a description of the topic.
      */
-    public function update($name, array $options = array())
+    public function update($topic, array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
-        $body['name'] = $name;
+        $body['topic'] = $topic;
 
         $response = $this->client->put('/topics/:id', $body, $options);
 

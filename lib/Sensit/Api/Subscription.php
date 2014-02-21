@@ -53,16 +53,12 @@ class Subscription
      * Create a subscription which will connect to the server and listen for feed data for any of the associated topics. Requires authorization of **manage_any_subscriptions**, or **manage_application_subscriptions**.
      * '/subscriptions' POST
      *
-     * @param $name The channel or name to identify the subscription.
-     * @param $host The ip address or host of the connection
-     * @param $protocol the protocol to comminivate over
+     * @param $subscription A Hash containing`name`:The channel or name to identify the subscription(required).`host`:The ip address or host of the connection(required).`protocol`:the protocol to communicate over (http, tcp, udp, mqtt) (required)`port`:The port of the connection.
      */
-    public function create($name, $host, $protocol, array $options = array())
+    public function create($subscription, array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
-        $body['name'] = $name;
-        $body['host'] = $host;
-        $body['protocol'] = $protocol;
+        $body['subscription'] = $subscription;
 
         $response = $this->client->post('/subscriptions', $body, $options);
 
@@ -73,16 +69,12 @@ class Subscription
      * Returns an object with the current configuration that Buffer is using, including supported services, their icons and the varying limits of character and schedules.  Requires authorization of **manage_any_subscriptions**, or **manage_application_subscriptions**.
      * '/subscriptions/:id' PUT
      *
-     * @param $name The channel or name to identify the subscription.
-     * @param $host The ip address or host of the connection
-     * @param $protocol the protocol to comminivate over
+     * @param $subscription A Hash containing`name`:The channel or name to identify the subscription(required).`host`:The ip address or host of the connection(required).`protocol`:the protocol to communicate over (http, tcp, udp, mqtt) (required)`port`:The port of the connection.
      */
-    public function update($name, $host, $protocol, array $options = array())
+    public function update($subscription, array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
-        $body['name'] = $name;
-        $body['host'] = $host;
-        $body['protocol'] = $protocol;
+        $body['subscription'] = $subscription;
 
         $response = $this->client->put('/subscriptions/'.rawurlencode($this->id).'', $body, $options);
 

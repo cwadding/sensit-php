@@ -19,7 +19,6 @@ class HttpClient
 {
     protected $options = array(
         'base'    => 'http://sensit.herokuapp.com/api',
-        'api_version' => '1',
         'user_agent' => 'alpaca/0.2.0 (https://github.com/pksunkara/alpaca)'
     );
 
@@ -29,7 +28,7 @@ class HttpClient
     {
 
         if (gettype($auth) == 'string') {
-            $auth = array('access_token' => $auth);
+            $auth = array('http_header' => $auth);
         }
 
         $this->options = array_merge($this->options, $options);

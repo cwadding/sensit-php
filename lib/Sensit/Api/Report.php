@@ -56,16 +56,12 @@ class Report
      * Create a new report on the associated Topic which can be easily retrieved later using an id. Requires authorization of **manage_any_reports**, or **manage_application_reports**.
      * '/topics/:topic_id/reports' POST
      *
-     * @param $name The name of the report.
-     * @param $query The search query to filter the data for the facet
-     * @param $facets An array of facet hashes which each contain a `name` ad type of the facet along with its query hash.
+     * @param $report A Hash containing `name`: The name of the report (required).`query`:The search query acccording to the [elasticsearch Query DSL](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl-queries.html) to filter the data for the facets (Defaults to match all).`facets`:An array of facet hashes which each contain a `name` ad type of the facet along with its query hash (required).
      */
-    public function create($name, $query, $facets, array $options = array())
+    public function create($report, array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
-        $body['name'] = $name;
-        $body['query'] = $query;
-        $body['facets'] = $facets;
+        $body['report'] = $report;
 
         $response = $this->client->post('/topics/'.rawurlencode($this->topic_id).'/reports', $body, $options);
 
@@ -76,16 +72,12 @@ class Report
      * Update the query, facets or name of the report. Requires authorization of **manage_any_reports**, or **manage_application_reports**.
      * '/topics/:topic_id/reports/:id' PUT
      *
-     * @param $name The name of the report.
-     * @param $query The search query to filter the data for the facet
-     * @param $facets An array of facet hashes which each contain a `name` ad type of the facet along with its query hash.
+     * @param $report A Hash containing `name`: The name of the report (required).`query`:The search query acccording to the [elasticsearch Query DSL](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl-queries.html) to filter the data for the facets (Defaults to match all).`facets`:An array of facet hashes which each contain a `name` ad type of the facet along with its query hash (required).
      */
-    public function update($name, $query, $facets, array $options = array())
+    public function update($report, array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
-        $body['name'] = $name;
-        $body['query'] = $query;
-        $body['facets'] = $facets;
+        $body['report'] = $report;
 
         $response = $this->client->put('/topics/'.rawurlencode($this->topic_id).'/reports/'.rawurlencode($this->id).'', $body, $options);
 

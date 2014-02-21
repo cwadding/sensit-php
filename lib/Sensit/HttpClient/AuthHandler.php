@@ -11,8 +11,7 @@ class AuthHandler
 {
     private $auth;
 
-    const URL_SECRET = 2;
-    const URL_TOKEN = 3;
+    const HTTP_HEADER = 1;
 
     public function __construct(array $auth = array())
     {
@@ -25,12 +24,8 @@ class AuthHandler
     public function getAuthType()
     {
 
-        if (isset($this->auth['client_id']) && isset($this->auth['client_secret'])) {
-            return self::URL_SECRET;
-        }
-
-        if (isset($this->auth['access_token'])) {
-            return self::URL_TOKEN;
+        if (isset($this->auth['http_header'])) {
+            return self::HTTP_HEADER;
         }
 
         return -1;
@@ -45,13 +40,8 @@ class AuthHandler
         $auth = $this->getAuthType();
         $flag = false;
 
-        if ($auth == self::URL_SECRET) {
-            $this->urlSecret($event);
-            $flag = true;
-        }
-
-        if ($auth == self::URL_TOKEN) {
-            $this->urlToken($event);
+        if ($auth == self::HTTP_HEADER) {
+            $this->httpHeader($event);
             $flag = true;
         }
 
@@ -61,24 +51,11 @@ class AuthHandler
     }
 
     /**
-     * OAUTH2 Authorization with client secret
+     * Authorization with HTTP header
      */
-    public function urlSecret(Event $event)
+    public function httpHeader(Event $event)
     {
-        $query = $event['request']->getQuery();
-
-        $query->set('client_id', $this->auth['client_id']);
-        $query->set('client_secret', $this->auth['client_secret']);
-    }
-
-    /**
-     * OAUTH2 Authorization with access token
-     */
-    public function urlToken(Event $event)
-    {
-        $query = $event['request']->getQuery();
-
-        $query->set('access_token', $this->auth['access_token']);
+        $event['request']->setHeader('Authorization', sprintf('Bearer %s', $this->auth['http_header']));
     }
 
 }
