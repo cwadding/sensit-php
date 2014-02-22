@@ -29,28 +29,28 @@ class Data
 
     /**
      * Requires authorization of **read_any_data**, or **read_application_data**.
-     * '/topics/:topic_id/feeds/:feed_id/data/:id' GET
+     * '/api/topics/:topic_id/feeds/:feed_id/data/:id' GET
      *
      */
     public function find(array $options = array())
     {
         $body = (isset($options['query']) ? $options['query'] : array());
 
-        $response = $this->client->get('/topics/'.rawurlencode($this->topic_id).'/feeds/'.rawurlencode($this->feed_id).'/data/'.rawurlencode($this->id).'', $body, $options);
+        $response = $this->client->get('/api/topics/'.rawurlencode($this->topic_id).'/feeds/'.rawurlencode($this->feed_id).'/data/'.rawurlencode($this->id).'', $body, $options);
 
         return $response;
     }
 
     /**
      * Update a specific value of a field within a feed with the data passed in. Requires authorization of **read_any_data**, or **read_application_data**.
-     * '/topics/:topic_id/feeds/:feed_id/data/:id' PUT
+     * '/api/topics/:topic_id/feeds/:feed_id/data/:id' PUT
      *
      */
     public function update(array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
 
-        $response = $this->client->put('/topics/'.rawurlencode($this->topic_id).'/feeds/'.rawurlencode($this->feed_id).'/data/'.rawurlencode($this->id).'', $body, $options);
+        $response = $this->client->put('/api/topics/'.rawurlencode($this->topic_id).'/feeds/'.rawurlencode($this->feed_id).'/data/'.rawurlencode($this->id).'', $body, $options);
 
         return $response;
     }

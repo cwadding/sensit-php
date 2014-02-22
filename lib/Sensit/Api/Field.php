@@ -26,35 +26,35 @@ class Field
 
     /**
      * Get all the fields associated with a topic. Requires authorization of **read_any_data**, or **read_application_data**
-     * '/topics/:topic_id/fields' GET
+     * '/api/topics/:topic_id/fields' GET
      *
      */
     public function list(array $options = array())
     {
         $body = (isset($options['query']) ? $options['query'] : array());
 
-        $response = $this->client->get('/topics/'.rawurlencode($this->topic_id).'/fields', $body, $options);
+        $response = $this->client->get('/api/topics/'.rawurlencode($this->topic_id).'/fields', $body, $options);
 
         return $response;
     }
 
     /**
      * Get a Field of the associated a topic and Id. Requires authorization of **read_any_data**, or **read_application_data**
-     * '/topics/:topic_id/fields/:id' GET
+     * '/api/topics/:topic_id/fields/:id' GET
      *
      */
     public function find(array $options = array())
     {
         $body = (isset($options['query']) ? $options['query'] : array());
 
-        $response = $this->client->get('/topics/'.rawurlencode($this->topic_id).'/fields/'.rawurlencode($this->id).'', $body, $options);
+        $response = $this->client->get('/api/topics/'.rawurlencode($this->topic_id).'/fields/'.rawurlencode($this->id).'', $body, $options);
 
         return $response;
     }
 
     /**
      * Adds a new field that feed data can be added too. Requires authorization of **manage_any_data**, or **manage_application_data**
-     * '/topics/:topic_id/fields' POST
+     * '/api/topics/:topic_id/fields' POST
      *
      * @param $field A Hash containing`name`: A descriptive name of the field.`key`:The name that is used to identify the field in a feed (required).`datatype`:The type of data that is stored in the field. ie. integer, float, string, bool, datetime
      */
@@ -63,7 +63,7 @@ class Field
         $body = (isset($options['body']) ? $options['body'] : array());
         $body['field'] = $field;
 
-        $response = $this->client->post('/topics/'.rawurlencode($this->topic_id).'/fields', $body, $options);
+        $response = $this->client->post('/api/topics/'.rawurlencode($this->topic_id).'/fields', $body, $options);
 
         return $response;
     }

@@ -26,35 +26,35 @@ class Report
 
     /**
      * Get all reports for the associated Topic. Requires authorization of **read_any_reports**, or **read_application_reports**.
-     * '/topics/:topic_id/reports' GET
+     * '/api/topics/:topic_id/reports' GET
      *
      */
     public function list(array $options = array())
     {
         $body = (isset($options['query']) ? $options['query'] : array());
 
-        $response = $this->client->get('/topics/'.rawurlencode($this->topic_id).'/reports', $body, $options);
+        $response = $this->client->get('/api/topics/'.rawurlencode($this->topic_id).'/reports', $body, $options);
 
         return $response;
     }
 
     /**
      * Retrieve a specific report on the associated topic by Id. Requires authorization of **read_any_reports**, or **read_application_reports**.
-     * '/topics/:topic_id/reports/:id' GET
+     * '/api/topics/:topic_id/reports/:id' GET
      *
      */
     public function find(array $options = array())
     {
         $body = (isset($options['query']) ? $options['query'] : array());
 
-        $response = $this->client->get('/topics/'.rawurlencode($this->topic_id).'/reports/'.rawurlencode($this->id).'', $body, $options);
+        $response = $this->client->get('/api/topics/'.rawurlencode($this->topic_id).'/reports/'.rawurlencode($this->id).'', $body, $options);
 
         return $response;
     }
 
     /**
      * Create a new report on the associated Topic which can be easily retrieved later using an id. Requires authorization of **manage_any_reports**, or **manage_application_reports**.
-     * '/topics/:topic_id/reports' POST
+     * '/api/topics/:topic_id/reports' POST
      *
      * @param $report A Hash containing `name`: The name of the report (required).`query`:The search query acccording to the [elasticsearch Query DSL](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl-queries.html) to filter the data for the facets (Defaults to match all).`facets`:An array of facet hashes which each contain a `name` ad type of the facet along with its query hash (required).
      */
@@ -63,14 +63,14 @@ class Report
         $body = (isset($options['body']) ? $options['body'] : array());
         $body['report'] = $report;
 
-        $response = $this->client->post('/topics/'.rawurlencode($this->topic_id).'/reports', $body, $options);
+        $response = $this->client->post('/api/topics/'.rawurlencode($this->topic_id).'/reports', $body, $options);
 
         return $response;
     }
 
     /**
      * Update the query, facets or name of the report. Requires authorization of **manage_any_reports**, or **manage_application_reports**.
-     * '/topics/:topic_id/reports/:id' PUT
+     * '/api/topics/:topic_id/reports/:id' PUT
      *
      * @param $report A Hash containing `name`: The name of the report (required).`query`:The search query acccording to the [elasticsearch Query DSL](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl-queries.html) to filter the data for the facets (Defaults to match all).`facets`:An array of facet hashes which each contain a `name` ad type of the facet along with its query hash (required).
      */
@@ -79,21 +79,21 @@ class Report
         $body = (isset($options['body']) ? $options['body'] : array());
         $body['report'] = $report;
 
-        $response = $this->client->put('/topics/'.rawurlencode($this->topic_id).'/reports/'.rawurlencode($this->id).'', $body, $options);
+        $response = $this->client->put('/api/topics/'.rawurlencode($this->topic_id).'/reports/'.rawurlencode($this->id).'', $body, $options);
 
         return $response;
     }
 
     /**
      * Remove a saved report on the associated Topic by Id. Requires authorization of **manage_any_reports**, or **manage_application_reports**.
-     * '/topics/:topic_id/reports/:id' DELETE
+     * '/api/topics/:topic_id/reports/:id' DELETE
      *
      */
     public function delete(array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
 
-        $response = $this->client->delete('/topics/'.rawurlencode($this->topic_id).'/reports/'.rawurlencode($this->id).'', $body, $options);
+        $response = $this->client->delete('/api/topics/'.rawurlencode($this->topic_id).'/reports/'.rawurlencode($this->id).'', $body, $options);
 
         return $response;
     }

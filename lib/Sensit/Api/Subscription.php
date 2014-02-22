@@ -23,35 +23,35 @@ class Subscription
 
     /**
      * Get the list of all subscriptions for importing feed data to the associated topics. Requires authorization of **read_any_subscriptions**, or **read_application_subscriptions**.
-     * '/subscriptions' GET
+     * '/api/subscriptions' GET
      *
      */
     public function list(array $options = array())
     {
         $body = (isset($options['query']) ? $options['query'] : array());
 
-        $response = $this->client->get('/subscriptions', $body, $options);
+        $response = $this->client->get('/api/subscriptions', $body, $options);
 
         return $response;
     }
 
     /**
      * Get the information of a specific subscription. Requires authorization of **read_any_subscriptions**, or **read_application_subscriptions**.
-     * '/subscriptions/:id' GET
+     * '/api/subscriptions/:id' GET
      *
      */
     public function find(array $options = array())
     {
         $body = (isset($options['query']) ? $options['query'] : array());
 
-        $response = $this->client->get('/subscriptions/'.rawurlencode($this->id).'', $body, $options);
+        $response = $this->client->get('/api/subscriptions/'.rawurlencode($this->id).'', $body, $options);
 
         return $response;
     }
 
     /**
      * Create a subscription which will connect to the server and listen for feed data for any of the associated topics. Requires authorization of **manage_any_subscriptions**, or **manage_application_subscriptions**.
-     * '/subscriptions' POST
+     * '/api/subscriptions' POST
      *
      * @param $subscription A Hash containing`name`:The channel or name to identify the subscription(required).`host`:The ip address or host of the connection(required).`protocol`:the protocol to communicate over (http, tcp, udp, mqtt) (required)`port`:The port of the connection.
      */
@@ -60,14 +60,14 @@ class Subscription
         $body = (isset($options['body']) ? $options['body'] : array());
         $body['subscription'] = $subscription;
 
-        $response = $this->client->post('/subscriptions', $body, $options);
+        $response = $this->client->post('/api/subscriptions', $body, $options);
 
         return $response;
     }
 
     /**
      * Returns an object with the current configuration that Buffer is using, including supported services, their icons and the varying limits of character and schedules.  Requires authorization of **manage_any_subscriptions**, or **manage_application_subscriptions**.
-     * '/subscriptions/:id' PUT
+     * '/api/subscriptions/:id' PUT
      *
      * @param $subscription A Hash containing`name`:The channel or name to identify the subscription(required).`host`:The ip address or host of the connection(required).`protocol`:the protocol to communicate over (http, tcp, udp, mqtt) (required)`port`:The port of the connection.
      */
@@ -76,21 +76,21 @@ class Subscription
         $body = (isset($options['body']) ? $options['body'] : array());
         $body['subscription'] = $subscription;
 
-        $response = $this->client->put('/subscriptions/'.rawurlencode($this->id).'', $body, $options);
+        $response = $this->client->put('/api/subscriptions/'.rawurlencode($this->id).'', $body, $options);
 
         return $response;
     }
 
     /**
      * Delete the subscription and stop listening for feed data for the associated topics. Requires authorization of **manage_any_subscriptions**, or **manage_application_subscriptions**.
-     * '/subscriptions/:id' DELETE
+     * '/api/subscriptions/:id' DELETE
      *
      */
     public function delete(array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
 
-        $response = $this->client->delete('/subscriptions/'.rawurlencode($this->id).'', $body, $options);
+        $response = $this->client->delete('/api/subscriptions/'.rawurlencode($this->id).'', $body, $options);
 
         return $response;
     }

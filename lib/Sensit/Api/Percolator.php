@@ -26,35 +26,35 @@ class Percolator
 
     /**
      * Returns a list or percolators for a given topic. Requires authorization of **read_any_percolators**, or **read_application_percolators**.
-     * '/topics/:topic_id/percolators' GET
+     * '/api/topics/:topic_id/percolators' GET
      *
      */
     public function list(array $options = array())
     {
         $body = (isset($options['query']) ? $options['query'] : array());
 
-        $response = $this->client->get('/topics/'.rawurlencode($this->topic_id).'/percolators', $body, $options);
+        $response = $this->client->get('/api/topics/'.rawurlencode($this->topic_id).'/percolators', $body, $options);
 
         return $response;
     }
 
     /**
      * Return a specific percolator of the associated Topic by Id. Requires authorization of **read_any_percolators**, or **read_application_percolators**.
-     * '/topics/:topic_id/percolators/:id' GET
+     * '/api/topics/:topic_id/percolators/:id' GET
      *
      */
     public function find(array $options = array())
     {
         $body = (isset($options['query']) ? $options['query'] : array());
 
-        $response = $this->client->get('/topics/'.rawurlencode($this->topic_id).'/percolators/'.rawurlencode($this->id).'', $body, $options);
+        $response = $this->client->get('/api/topics/'.rawurlencode($this->topic_id).'/percolators/'.rawurlencode($this->id).'', $body, $options);
 
         return $response;
     }
 
     /**
      * Create a percolator on the associated Topic with the specified name and query. Requires authorization of **manage_any_percolators**, or **manage_application_percolators**.
-     * '/topics/:topic_id/percolators' POST
+     * '/api/topics/:topic_id/percolators' POST
      *
      * @param $percolator A Hash containing `name`: The name of the percolator(required).`query`: The query hash according to the according the the [elasticsearch Query DSL](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl.html)
      */
@@ -63,14 +63,14 @@ class Percolator
         $body = (isset($options['body']) ? $options['body'] : array());
         $body['percolator'] = $percolator;
 
-        $response = $this->client->post('/topics/'.rawurlencode($this->topic_id).'/percolators', $body, $options);
+        $response = $this->client->post('/api/topics/'.rawurlencode($this->topic_id).'/percolators', $body, $options);
 
         return $response;
     }
 
     /**
      * Update the query for a specific percolator. Requires authorization of **manage_any_percolators**, or **manage_application_percolators**.
-     * '/topics/:topic_id/percolators/:id' PUT
+     * '/api/topics/:topic_id/percolators/:id' PUT
      *
      * @param $percolator A Hash containing the `query` hash according to the according the the [elasticsearch Query DSL](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl.html)
      */
@@ -79,21 +79,21 @@ class Percolator
         $body = (isset($options['body']) ? $options['body'] : array());
         $body['percolator'] = $percolator;
 
-        $response = $this->client->put('/topics/'.rawurlencode($this->topic_id).'/percolators/'.rawurlencode($this->id).'', $body, $options);
+        $response = $this->client->put('/api/topics/'.rawurlencode($this->topic_id).'/percolators/'.rawurlencode($this->id).'', $body, $options);
 
         return $response;
     }
 
     /**
      * Delete a percolator on the associated topic. Requires authorization of **manage_any_percolators**, or **manage_application_percolators**.
-     * '/topics/:topic_id/percolators/:id' DELETE
+     * '/api/topics/:topic_id/percolators/:id' DELETE
      *
      */
     public function delete(array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
 
-        $response = $this->client->delete('/topics/'.rawurlencode($this->topic_id).'/percolators/'.rawurlencode($this->id).'', $body, $options);
+        $response = $this->client->delete('/api/topics/'.rawurlencode($this->topic_id).'/percolators/'.rawurlencode($this->id).'', $body, $options);
 
         return $response;
     }

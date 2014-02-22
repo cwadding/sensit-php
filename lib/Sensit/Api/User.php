@@ -20,14 +20,14 @@ class User
 
     /**
      * <no value>
-     * '/user' GET
+     * '/api/user' GET
      *
      */
     public function profile(array $options = array())
     {
         $body = (isset($options['query']) ? $options['query'] : array());
 
-        $response = $this->client->get('/user', $body, $options);
+        $response = $this->client->get('/api/user', $body, $options);
 
         return $response;
     }

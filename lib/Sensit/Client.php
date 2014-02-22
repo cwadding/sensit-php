@@ -14,6 +14,28 @@ class Client
     }
 
     /**
+     * A **Percolator** is a reverse query much like a match rule which is run whenever a new feed is added. These can be used to create alerts by causing the sensit to publish the feed that was just added. A percolator query is defined by a `name` and and valid `query` according to the according the the [elasticsearch Query DSL](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl.html).  For more information about Percolator queries please refer to the [elasticsearch percolator documentation](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-percolate.html).
+     *
+     * @param $topic_id The key for the parent topic
+     * @param $id The name of the percolator query
+     */
+    public function percolator($topic_id, $id)
+    {
+        return new Api\Percolator($topic_id, $id, $this->httpClient);
+    }
+
+    /**
+     * Reports are stored filter and facet queries on the **Feed** data. A report is a assigned a `name` and the `query` is any elasticsearch query which filters only the desired data for the facets (See the [elasticsearch Query DSL](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl-queries.html) for valid queries). A report can have many `facets` with each facet is referred to by a user defined `name`. Valid `type`'s of facet include **terms**, **range**, **histogram**, **filter**, **statistical**, **query**, **terms_stats**, or **geo_distance**. The `query` within a facet defines the field counts or statistics which the data is calculated over. See the [elasticsearch facet dsl](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-facets.html) for information about the various facet types and valid query fields.
+     *
+     * @param $topic_id The key for the parent topic
+     * @param $id The identifier of the report
+     */
+    public function report($topic_id, $id)
+    {
+        return new Api\Report($topic_id, $id, $this->httpClient);
+    }
+
+    /**
      * <no value>
      *
      */
@@ -55,28 +77,6 @@ class Client
     }
 
     /**
-     * A **Percolator** is a reverse query much like a match rule which is run whenever a new feed is added. These can be used to create alerts by causing the sensit to publish the feed that was just added. A percolator query is defined by a `name` and and valid `query` according to the according the the [elasticsearch Query DSL](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl.html).  For more information about Percolator queries please refer to the [elasticsearch percolator documentation](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-percolate.html).
-     *
-     * @param $topic_id The key for the parent topic
-     * @param $id The name of the percolator query
-     */
-    public function percolator($topic_id, $id)
-    {
-        return new Api\Percolator($topic_id, $id, $this->httpClient);
-    }
-
-    /**
-     * Reports are stored filter and facet queries on the **Feed** data. A report is a assigned a `name` and the `query` is any elasticsearch query which filters only the desired data for the facets (See the [elasticsearch Query DSL](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl-queries.html) for valid queries). A report can have many `facets` with each facet is referred to by a user defined `name`. Valid `type`'s of facet include **terms**, **range**, **histogram**, **filter**, **statistical**, **query**, **terms_stats**, or **geo_distance**. The `query` within a facet defines the field counts or statistics which the data is calculated over. See the [elasticsearch facet dsl](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-facets.html) for information about the various facet types and valid query fields.
-     *
-     * @param $topic_id The key for the parent topic
-     * @param $id The identifier of the report
-     */
-    public function report($topic_id, $id)
-    {
-        return new Api\Report($topic_id, $id, $this->httpClient);
-    }
-
-    /**
      * Subscriptions allows feed data to imported using a socket rather than just using the Feed REST API. By creating a subscription sensit will start to listen for feed data being imported using the specified `host` and while using the topic name as the `channel` name.
      *
      * @param $id The identifier for the subscription
@@ -95,6 +95,17 @@ class Client
     public function field($topic_id, $id)
     {
         return new Api\Field($topic_id, $id, $this->httpClient);
+    }
+
+    /**
+     * Publications are stored actions which are taken when a feed is created, updated, deleted, or there is a matching percolator query.
+     *
+     * @param $topic_id The key for the parent topic
+     * @param $id The identifier of the publication
+     */
+    public function publication($topic_id, $id)
+    {
+        return new Api\Publication($topic_id, $id, $this->httpClient);
     }
 
 }
