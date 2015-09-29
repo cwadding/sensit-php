@@ -346,7 +346,7 @@ $response = $topic->delete($options);
 
 ### Feed api
 
-Returns api instance to get auxilary information about Buffer useful when creating your app.
+Returns api instance to get auxiliary information about Buffer useful when creating your app.
 
 The following arguments are required:
 
